@@ -1,0 +1,67 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+
+int main() {
+    char bd[15][30] = {"matematica","igreja","luz","corredor","salto","concha","prato","volume","salvador","encanador","biografia","porta","zelo","crosta","manteiga"};
+    int opcao, sair = 1, i;
+    
+    void novoJogo(char banco_dados[15][30]);
+    
+    do{
+        printf("[1] Novo jogo\n[2] Banco de dados\n[3] Sobre\n[4] Ajuda\n[5] Sair\n\n");
+        scanf("%d", &opcao);
+        switch (opcao) {
+            case 1:
+                novoJogo(bd);
+                break;
+            case 2:
+                for (i = 0; i < 15 ; i++)
+                    printf("\n%d-%s\n\n", i, bd[i]);
+                    break;
+            case 3:
+                printf("Sobre:\n");
+                printf("\nAutor: Samuel Lima de Alencar\n");
+                printf("Desenvolvido para obtencao de credito na disciplina LP1\n\n");
+                break;
+            case 4:
+                printf("Ajuda\n");
+                printf("\nO jogo da forca é um jogo em que o jogador tem que acertar qual é a palavra proposta. Voce deve tentar descobrir as letras atraves das tentativas, ao final sera dito a quantidade de tentativas do jogador\n\n");
+                break;
+            case 5:
+                sair = 0;
+        }
+    }while (sair);
+    return 0;
+}
+
+void novoJogo(char banco_dados[15][30]){
+    int sorteio, i, tentativas = 0, aux = 0;
+    char espaco[30]= "", letra;
+    srand(time(NULL));
+    sorteio = rand()%15;
+    for (i = 0; i < strlen(banco_dados[sorteio]); i++) {
+    }
+       printf("\n*-*-*-*-*-*-*-*JOGO DA FORCA*-*-*-*-*-*-*-*\n");
+    do{
+        for (i = 0; i < strlen(banco_dados[sorteio]); i++) {
+            printf("%c", espaco[i]);
+        }
+        printf("\nInforme apenas uma letra\n");
+        scanf("%s", &letra);
+        aux = 0;
+        for (i = 0; i < strlen(banco_dados[sorteio]); i++) {
+            if(letra == banco_dados[sorteio][i]){
+                espaco[i] = letra;
+                aux = 1;
+            }
+        }
+        if (aux == 0) {
+            tentativas++;
+        }
+    }while (strcmp(banco_dados[sorteio], espaco));
+    printf("Parabens voce acertou");
+    printf("\nA palavra e: %s\n", banco_dados[sorteio]);
+    printf("Quantidade de erros: %d\n", tentativas);
+}
